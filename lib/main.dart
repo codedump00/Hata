@@ -13,16 +13,28 @@ class BootStrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => UserState(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => AppTheme(),
-        )
-      ],
-      child: Hata(),
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(
+        create: (context) => UserState(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => AppTheme(),
+      )
+    ], child: App());
+  }
+}
+
+class App extends StatelessWidget {
+  const App({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Provider.of<UserState>(context).handleInitialLoad();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Hata',
+      theme: Provider.of<AppTheme>(context).theme,
+      home: Hata(),
     );
   }
 }
